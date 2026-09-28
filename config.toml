@@ -1,0 +1,46 @@
+# Nothing secret goes here: keys live in
+# ~/.config/voice-caller/secrets.env (see README "Secrets").
+# Every key below is optional; the defaults are in voice_caller/config.py.
+
+[server]
+host = "127.0.0.1"
+port = 8765
+
+[tunnel]
+# cloudflared-quick: a Cloudflare Quick Tunnel is started for each call (no account)
+# static:            you run a tunnel yourself and put its https URL in public_url
+mode = "cloudflared-quick"
+public_url = ""
+
+[twilio]
+ring_timeout_s = 30        # let it ring this long
+time_limit_s = 480         # Twilio hangs up after 8 minutes no matter what (cost guard)
+
+[elevenlabs]
+# REQUIRED before a real call: a voice your API key can use. List them with `./vc voices`.
+# Free accounts made after March 2026 have no default voices, and free keys cannot use
+# Voice Library voices over the API: design one (Voice Design, free) or use a paid plan.
+voice_id = "iP95p4xoKVk53GoZ742B"  # chris
+tts_model = "eleven_flash_v2_5"   # lowest-latency model
+stt_model = "scribe_v2"
+speed = 1.0
+
+[brain]
+# Chosen from measured latency through the claude CLI (warm turn, time to first token):
+# on the Mac 2026-09-27 haiku-4-5 ~0.5 s, sonnet-5 ~1.0 s. Use --model claude-sonnet-5 for harder calls.
+model = "claude-haiku-4-5"
+effort = "low"
+summary_model = "claude-opus-5"    # post-call summary; latency doesn't matter there
+
+[turns]
+endpoint_silence_ms = 600   # silence that ends their turn; raise if the agent cuts people off
+barge_in_min_ms = 400       # how long they must talk over the agent to stop it
+min_speech_rms = 300        # raise on noisy lines if background noise triggers turns
+
+[safety]
+allow_international = false
+max_turns = 80
+
+[calls]
+redial_if_unreached = true  # dnd lets repeats ring
+callback_if_hung_up = true  # ask if they meant to

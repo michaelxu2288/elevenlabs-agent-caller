@@ -1,0 +1,34 @@
+# First real call: the agent calls YOUR phone and you play the bakery employee.
+# Copy to tasks/first-test-call.toml, put your own number in `to`, then:
+#   ./vc call tasks/first-test-call.toml          (shows the plan)
+#   ./vc call tasks/first-test-call.toml --yes    (dials)
+# Try: answer "Sweet Crumb Bakery, how can I help you?", say sourdough is sold out,
+# interrupt it once mid-sentence, put it on hold ("one sec..."), then say goodbye.
+
+[call]
+to = "+1XXXXXXXXXX"                 # YOUR mobile, E.164
+business_name = "Sweet Crumb Bakery"
+
+[caller]
+on_behalf_of = "Alex Kim"
+callback_number = ""
+disclose_ai = true
+
+[goal]
+summary = "Place a pickup order at the bakery for this Saturday."
+details = """
+- One dozen chocolate chip cookies.
+- One loaf of sourdough bread.
+- Pickup this Saturday, ideally at 10 a.m.; anytime between 10 a.m. and noon is fine.
+"""
+constraints = """
+- Budget: up to $40 before tax. If the total is higher, drop the bread first.
+- If sourdough is sold out, accept a similar crusty loaf (country white, rustic, French); otherwise skip it.
+- Pay at pickup. There is no card to give over the phone.
+"""
+
+[voicemail]
+policy = "hang_up"
+
+[options]
+timezone = "America/Chicago"

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# voice-caller entry point: ./vc <command>   (./vc --help for the list)
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PY="$HERE/.venv/bin/python"
+if [ ! -x "$PY" ]; then
+  echo "no virtualenv yet: run $HERE/scripts/setup.sh first" >&2
+  exit 1
+fi
+cd "$HERE" && exec "$PY" -m voice_caller "$@"

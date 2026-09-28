@@ -1,0 +1,36 @@
+# A call task: who to call, for whom, and what to get done.
+# Copy this file for each real call and edit it. Place the call with:
+#   ./vc call tasks/<your-file>.toml            (prints the plan, dials nothing)
+#   ./vc call tasks/<your-file>.toml --yes      (dials)
+# The dry run uses this file too, with the number swapped for the simulated bakery.
+
+[call]
+to = "+15125550142"                 # the business, E.164 (+1 and ten digits). 555-01xx is fictional
+business_name = "Sweet Crumb Bakery"
+# send_digits = "ww2"               # optional: keys Twilio presses right after answer (w = 0.5 s pause)
+
+[caller]
+on_behalf_of = "Alex Kim"           # the name the order goes under
+callback_number = ""                # e.g. "+1 512 555 0199"; strongly recommended for real calls
+disclose_ai = true                  # say "I'm an AI assistant calling on behalf of ..." up front
+
+[goal]
+summary = "Place a pickup order at the bakery for this Saturday."
+details = """
+- One dozen chocolate chip cookies.
+- One loaf of sourdough bread.
+- Pickup this Saturday, ideally at 10 a.m.; anytime between 10 a.m. and noon is fine.
+"""
+constraints = """
+- Budget: up to $40 before tax. If the total is higher, drop the bread first.
+- If sourdough is sold out, accept a similar crusty loaf (country white, rustic, French); otherwise skip the bread.
+- Pay at pickup. There is no card to give over the phone.
+- Don't add anything that isn't listed above.
+"""
+
+[voicemail]
+policy = "hang_up"                  # or "leave_message" (then set message below)
+message = ""
+
+[options]
+timezone = "America/Chicago"

@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+calls/
+*.env
+!secrets.env.example
+tasks/*.toml
+!tasks/example-bakery-order.toml
